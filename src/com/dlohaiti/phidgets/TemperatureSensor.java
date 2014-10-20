@@ -15,6 +15,15 @@ public class TemperatureSensor implements PhidgetInterface {
         }
     }
 
+    public TemperatureSensor(int serial){
+        try{
+            this.sensor = new TemperatureSensorPhidget();
+            this.sensor.open(serial);
+        }catch (PhidgetException e) {
+            System.err.println(e.toString());
+        }
+    }
+
     @Override
     public String readValue() throws PhidgetException {
         return String.valueOf(sensor.getTemperature(0));

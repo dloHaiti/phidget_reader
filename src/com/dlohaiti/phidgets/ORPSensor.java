@@ -18,6 +18,15 @@ public class ORPSensor implements PhidgetInterface {
         }
     }
 
+     public ORPSensor(int serial) {
+        try {
+            this.sensor = new InterfaceKitPhidget();
+            this.sensor.open(serial);
+        } catch (PhidgetException e) {
+            System.err.println(e.toString());
+        }
+    }
+
     @Override
     public String readValue() throws PhidgetException {
         int sensorValue = sensor.getSensorValue(0);

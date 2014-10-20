@@ -32,6 +32,27 @@ public class FlowMeter implements PhidgetInterface {
         }
     }
 
+
+     public FlowMeter(int serial, int pulseRate) {
+        try {
+            this.sensor = new FrequencyCounterPhidget();
+            this.sensor.open(serial);
+            this.pulseRate = pulseRate;
+
+            sensor.addFrequencyCounterCountListener(new FrequencyCounterCountListener() {
+                public void frequencyCounterCounted(FrequencyCounterCountEvent fcce) {
+                    try {
+                        totalCount = sensor.getTotalCount(fcce.getIndex());
+                    } catch (Exception e) {
+                        System.err.println(e.toString());
+                    }
+                }
+            });
+        } catch (PhidgetException e) {
+            System.err.println(e.toString());
+        }
+    }
+
     @Override
     public String readValue() throws PhidgetException{
         if(!sensor.isAttached()) {

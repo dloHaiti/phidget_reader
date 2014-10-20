@@ -33,8 +33,9 @@ public class PhidgetsReader extends Thread{
             if(label.isEmpty()){
                 continue;
             }
+            int serial = Integer.parseInt(label);
             int pluseRate=Integer.parseInt(properties.getProperty("flow_meter." + label + ".pulserate", "48"));
-            senors.put(label, new FlowMeter(label, pluseRate));
+            senors.put(label, new FlowMeter(serial, pluseRate));
         }
     }
 
@@ -44,7 +45,8 @@ public class PhidgetsReader extends Thread{
             if(label.isEmpty()){
                 continue;
             }
-            senors.put(label, new ORPSensor(label));
+            int serial = Integer.parseInt(label);
+            senors.put(label, new ORPSensor(serial));
         }
     }
 
@@ -54,7 +56,8 @@ public class PhidgetsReader extends Thread{
             if(label.isEmpty()){
                 continue;
             }
-            senors.put(label, new PHSensor(label));
+            int serial = Integer.parseInt(label);
+            senors.put(label, new PHSensor(serial));
         }
     }
 
@@ -64,7 +67,8 @@ public class PhidgetsReader extends Thread{
             if(label.isEmpty()){
                 continue;
             }
-            senors.put(label, new TemperatureSensor(label));
+            int serial = Integer.parseInt(label);
+            senors.put(label, new TemperatureSensor(serial));
         }
     }
 
